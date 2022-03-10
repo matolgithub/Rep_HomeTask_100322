@@ -24,13 +24,15 @@ class Mentor:
         else:
             return 'Ошибка'
 
-# New subclass with parent Mentor
+# New subclass from parent Mentor with initialisation
 class Lecturer(Mentor):
-    pass  
+    def __init__(self, name, surname):
+        super().__init__(name, surname)
 
-# New subclass with parent Mentor
+# New subclass from parent Mentor with initialisation
 class Reviewer(Mentor):
-    pass
+    def __init__(self, name, surname):
+        super().__init__(name, surname)
 
 # Block with old code
 best_student = Student('Ruoy', 'Eman', 'your_gender')
