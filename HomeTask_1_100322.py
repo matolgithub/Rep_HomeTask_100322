@@ -1,3 +1,4 @@
+# Old first class Student
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -6,7 +7,8 @@ class Student:
         self.finished_courses = []
         self.courses_in_progress = []
         self.grades = {}
-        
+
+# Old second class Mentor         
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
@@ -21,7 +23,16 @@ class Mentor:
                 student.grades[course] = [grade]
         else:
             return 'Ошибка'
- 
+
+# New subclass with parent Mentor
+class Lecturer(Mentor):
+    pass  
+
+# New subclass with parent Mentor
+class Reviewer(Mentor):
+    pass
+
+# Block with old code
 best_student = Student('Ruoy', 'Eman', 'your_gender')
 best_student.courses_in_progress += ['Python']
  
