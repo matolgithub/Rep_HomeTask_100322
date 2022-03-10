@@ -8,9 +8,17 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
+# New calculate method middle grade for Student 
+    def midgrade_stud(self):
+        total_stud = 0
+        for i in self.grades.values():
+            total_stud += sum(i) / len(i)
+        mg_stud = round((total_stud / len(self.grades)), 1)
+        return mg_stud    
+
 # Use __str__ method for Student
     def __str__(self):
-        return f''
+        return f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашние задания: {Student.midgrade_stud(self)}\nКурсы в процессе изучения: {", ".join(self.courses_in_progress)}\nЗавершенные курсы: {", ".join(self.finished_courses)}'
 
     # New method lect_rating with the grade control
     def lect_rating(self, lecturer, course, grade):
@@ -39,6 +47,7 @@ class Lecturer(Mentor):
         self.stud_rate = {}
         self.mr_lect = 5
 
+# New calculate method middle rate for Lecturer 
     def midrate_lect(self):
         total = 0
         for i in self.stud_rate.values():
@@ -81,10 +90,17 @@ some_lecturer = Lecturer('Some', 'Bubby')
 some_lecturer.courses_attached += ['Python']
 some_lecturer.courses_attached += ['PHP']
 some_lecturer.courses_attached += ['CSS']
-some_lecturer.stud_rate['Python'] = [9, 8, 10]
-some_lecturer.stud_rate['PHP'] = [9, 9, 9]
+some_lecturer.stud_rate['Python'] = [9, 10, 10]
+some_lecturer.stud_rate['PHP'] = [10, 10, 10]
 some_lecturer.stud_rate['CSS'] = [10, 10, 10]
 print(some_lecturer)
 print('<>' * 50)
 
-# test __str__ for some_lecturer
+# test __str__ for some_student
+some_student = Student('Ruoy', 'Eman', 'M')
+some_student.courses_in_progress = ['Python', 'Git']
+some_student.finished_courses = ['Введение в программирование']
+some_student.grades['Python'] = [10, 10, 9, 10]
+some_student.grades['Git'] = [10, 10, 10, 10]
+print(some_student)
+print('<>' * 50)
