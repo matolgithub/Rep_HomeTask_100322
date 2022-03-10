@@ -8,6 +8,10 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
+# Use __str__ method for Student
+    def __str__(self):
+        return f''
+
     # New method lect_rating with the grade control
     def lect_rating(self, lecturer, course, grade):
         if isinstance(lecturer, Lecturer) and course in lecturer.courses_attached and course in self.courses_in_progress:
@@ -33,6 +37,18 @@ class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
         self.stud_rate = {}
+        self.mr_lect = 5
+
+    def midrate_lect(self):
+        total = 0
+        for i in self.stud_rate.values():
+            total += sum(i) / len(i)
+        mr_lect = round((total / len(self.stud_rate)), 1)
+        return mr_lect
+
+# Use __str__ method for Lecturer
+    def __str__(self):
+        return f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {Lecturer.midrate_lect(self)}'
 
 # New subclass from parent Mentor with initialisation
 class Reviewer(Mentor):
@@ -49,31 +65,26 @@ class Reviewer(Mentor):
         else:
             return "It's Mistake!"
 
+# Use __str__ method Reviewer
+    def __str__(self):
+        return f'Имя: {self.name}\nФамилия: {self.surname}'
+
 # Block of tests
 
-# Earlier tested
-'''
-best_student = Student('Ruoy', 'Eman', 'your_gender')
-best_student.courses_in_progress += ['Python']
- 
-cool_reviewer = Reviewer('Some', 'Buddy')
-cool_reviewer.courses_attached += ['Python']
- 
-cool_reviewer.put_rating(best_student, 'Python', 10)
-cool_reviewer.put_rating(best_student, 'Python', 10)
-cool_reviewer.put_rating(best_student, 'Python', 10)
- 
-print(best_student.grades)
-print(best_student.name, best_student.surname, best_student.gender)
-print(best_student.courses_in_progress, best_student.finished_courses)
-print(cool_reviewer.name, cool_reviewer.surname, cool_reviewer.courses_attached)
-'''
-# New test
-student_1 = Student('Ivan', 'Ivanov', 'M')
-student_1.courses_in_progress += ['HTML + CSS']
-lecturer_1 = Lecturer('Karl', 'Karlovich')
-lecturer_1.courses_attached += ['HTML + CSS']
-student_1.lect_rating(lecturer_1, 'HTML', 7)
-student_1.lect_rating(lecturer_1, 'HTML + CSS', 22)
-student_1.lect_rating(lecturer_1, 'HTML + CSS', 10)
-print(f'Student {student_1.name} {student_1.surname} put to lecturer {lecturer_1.name} {lecturer_1.surname} marks {lecturer_1.stud_rate}')
+# test __str__ for some_reviewer
+some_reviewer = Reviewer('Some', 'Buddy')
+print(some_reviewer)
+print('<>' * 50)
+
+# test __str__ for some_lecturer
+some_lecturer = Lecturer('Some', 'Bubby')
+some_lecturer.courses_attached += ['Python']
+some_lecturer.courses_attached += ['PHP']
+some_lecturer.courses_attached += ['CSS']
+some_lecturer.stud_rate['Python'] = [9, 8, 10]
+some_lecturer.stud_rate['PHP'] = [9, 9, 9]
+some_lecturer.stud_rate['CSS'] = [10, 10, 10]
+print(some_lecturer)
+print('<>' * 50)
+
+# test __str__ for some_lecturer
