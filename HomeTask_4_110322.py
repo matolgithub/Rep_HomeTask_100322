@@ -90,28 +90,71 @@ class Reviewer(Mentor):
     def __str__(self):
         return f'Имя: {self.name}\nФамилия: {self.surname}'
 
+
 # Fild tests
 
 # New 2 instances class Student
+student_1 = Student('Elena', 'Trofimova', 'F')
+student_1.courses_in_progress = ['Python', 'Git']
+student_1.finished_courses = ['Введение в программирование']
+student_1.grades['Python'] = [10, 8, 9, 10]
+student_1.grades['Git'] = [10, 7, 10, 10]
 
+student_2 = Student('Dmitriy', 'Peskov', 'M')
+student_2.courses_in_progress = ['Python', 'CSS']
+student_2.finished_courses = ['PHP']
+student_2.grades['Python'] = [10, 10, 9, 10]
+student_2.grades['CSS'] = [10, 10, 10, 10]
 
 # New 2 instances class Mentor
+mentor_1 = Mentor('Semen', 'Shpakov')
+mentor_1.courses_attached += ['Python']
+mentor_1.courses_attached += ['PHP']
+mentor_1.courses_attached += ['CSS']
 
+mentor_2 = Mentor('Nicolay', 'Fedorov')
+mentor_2.courses_attached += ['Python']
+mentor_2.courses_attached += ['PHP']
+mentor_2.courses_attached += ['CSS']
 
 # New 2 instances class Lecturer
+lecturer_1 = Lecturer('Nicolay', 'Fedorov')
+lecturer_1.courses_attached += ['Python']
+lecturer_1.courses_attached += ['PHP']
+lecturer_1.courses_attached += ['CSS']
+lecturer_1.stud_rate['Python'] = [9, 10, 10]
+lecturer_1.stud_rate['PHP'] = [10, 10, 10]
+lecturer_1.stud_rate['CSS'] = [10, 10, 10]
 
+lecturer_2 = Lecturer('Fedor', 'Sidorov')
+lecturer_2.courses_attached += ['Python']
+lecturer_2.courses_attached += ['PHP']
+lecturer_2.stud_rate['Python'] = [8, 10, 9, 10]
+lecturer_2.stud_rate['PHP'] = [10, 7, 10, 9]
 
 # New 2 instances class Reviewer
+reviewer_1 = Reviewer('Semen', 'Shpakov')
+reviewer_1.courses_attached += ['Python']
+reviewer_1.courses_attached += ['PHP']
+reviewer_1.courses_attached += ['CSS']
+
+reviewer_2 = Reviewer('Vladimir', 'Sokolov')
+reviewer_2.courses_attached += ['Python']
+reviewer_2.courses_attached += ['Java']
+
+# Test def midgrade_stud(self) for Student
 
 
-# Test def midgrade_stud(self)
-
-
-# Test def __gt__(self, other)
-
+# Test def __gt__(self, other) for Student
+print(f'Is STUDENT  {student_1.surname}  {student_1.name} is better then  {student_2.surname}  {student_2.name}  ----  It is ', Student.midgrade_stud(student_1) > Student.midgrade_stud(student_2))
+print(f'Because STUDENT {student_1.surname} have middle grade: {Student.midgrade_stud(student_1)} and {student_2.surname} have middle grade: {Student.midgrade_stud(student_2)}.')
+print('<>' * 50)
 
 # Test def __str__(self) for Student
-
+print(student_1)
+print('<>' * 50)
+print(student_2)
+print('<>' * 50)
 
 # Test def lect_rating(self, lecturer, course, grade)
 
@@ -120,73 +163,21 @@ class Reviewer(Mentor):
 
 
 # Test def __str__(self) for Lecturer
-
+print(lecturer_1)
+print('<>' * 50)
+print(lecturer_2)
+print('<>' * 50)
 
 # Test def __lt__(self, other) for Lecturer
-
-
-# Test def put_rating(self, lecturer, course, grade)
-
-
-# Test 
-
-
-# test __str__ for some_reviewer
-some_reviewer = Reviewer('Some', 'Buddy')
-print(some_reviewer)
-print('<>' * 50)
-
-# test __str__ for some_lecturer
-some_lecturer = Lecturer('Some', 'Bubby')
-some_lecturer.courses_attached += ['Python']
-some_lecturer.courses_attached += ['PHP']
-some_lecturer.courses_attached += ['CSS']
-some_lecturer.stud_rate['Python'] = [9, 10, 10]
-some_lecturer.stud_rate['PHP'] = [10, 10, 10]
-some_lecturer.stud_rate['CSS'] = [10, 10, 10]
-print(some_lecturer)
-print('<>' * 50)
-
-# test __str__ for some_student
-some_student = Student('Ruoy', 'Eman', 'M')
-some_student.courses_in_progress = ['Python', 'Git']
-some_student.finished_courses = ['Введение в программирование']
-some_student.grades['Python'] = [10, 10, 9, 10]
-some_student.grades['Git'] = [10, 10, 10, 10]
-print(some_student)
-print('<>' * 50)
-
-# test compare the students
-# the first student
-student_1 = Student('Ivan', 'Ivanov', 'M')
-student_1.courses_in_progress = ['Python', 'Git', 'PHP']
-student_1.finished_courses = ['Введение в программирование']
-student_1.grades['Python'] = [10, 10, 9, 10]
-student_1.grades['Git'] = [10, 10, 10, 10]
-student_1.grades['PHP'] = [10, 10, 10, 9]
-student_1.grades['Введение в программирование'] = [10, 10, 10, 9]
-# the second student
-student_2 = Student('Roman', 'Romanov', 'M')
-student_2.courses_in_progress = ['Python', 'Git']
-student_2.finished_courses = ['Введение в программирование']
-student_2.grades['Python'] = [8, 9, 9, 10]
-student_2.grades['Git'] = [10, 8, 10, 9] 
-student_1.grades['Введение в программирование'] = [9, 8, 10, 9]
-print(f'Is STUDENT  {student_1.surname}  {student_1.name} is better then  {student_2.surname}  {student_2.name}  ----  It is ', Student.midgrade_stud(student_1) > Student.midgrade_stud(student_2))
-print(f'Because STUDENT {student_1.surname} have middle grade: {Student.midgrade_stud(student_1)} and {student_2.surname} have middle grade: {Student.midgrade_stud(student_2)}.')
-print('<>' * 50)
-
-# test compare the lecturers
-# the first lecturer
-lecturer_1 = Lecturer('Igor', 'Petrov')
-lecturer_1.stud_rate['Python'] = [7, 10, 9, 7]
-lecturer_1.stud_rate['Git'] = [10, 7, 10, 9]
-lecturer_1.stud_rate['PHP'] = [7, 8, 10, 9]
-# the second lecturer
-lecturer_2 = Lecturer('Fedor', 'Sidorov')
-lecturer_2.stud_rate['Python'] = [10, 10, 9, 10]
-lecturer_2.stud_rate['Git'] = [10, 10, 10, 9]
-lecturer_2.stud_rate['CSS'] = [10, 10, 10, 9]
 print(f'Is LECTURER  {lecturer_2.surname}  {lecturer_2.name} is better then  {lecturer_1.surname}  {lecturer_1.name}  ----  It is ', Lecturer.midrate_lect(lecturer_1) < Lecturer.midrate_lect(lecturer_2))
 print(f'LECTURER {lecturer_2.surname} have middle grade: {Lecturer.midrate_lect(lecturer_2)} and {lecturer_1.surname} have middle grade: {Lecturer.midrate_lect(lecturer_1)}.')
+print('<>' * 50)
+
+# Test def put_rating(self, student, course, grade) for Reviewer
+
+
+# Test def __str__(self) for Reviewer
+print(reviewer_1)
+print('<>' * 50)
+print(reviewer_2)
 print('<>' * 50)
