@@ -8,13 +8,14 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
-
 # New calculate method middle grade for Student 
     def midgrade_stud(self):
         total_stud = 0
+        calc_grade = 0
         for i in self.grades.values():
-            total_stud += sum(i) / len(i)
-        mg_stud = round((total_stud / len(self.grades)), 1)
+            total_stud += sum(i)
+            calc_grade += len(i)
+        mg_stud = round((total_stud / calc_grade), 1)
         return mg_stud
 
 # New method compare students by the middle grade
@@ -55,10 +56,12 @@ class Lecturer(Mentor):
 
 # New calculate method middle rate for Lecturer 
     def midrate_lect(self):
-        total = 0
+        total_sum = 0
+        calc_rate = 0
         for i in self.stud_rate.values():
-            total += sum(i) / len(i)
-        mr_lect = round((total / len(self.stud_rate)), 1)
+            total_sum += sum(i)
+            calc_rate += len(i)
+        mr_lect = round((total_sum / calc_rate), 1)
         return mr_lect
 
 # Use __str__ method for Lecturer

@@ -8,14 +8,31 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
-
 # New calculate method middle grade for Student 
     def midgrade_stud(self):
         total_stud = 0
+        calc_grade = 0
         for i in self.grades.values():
-            total_stud += sum(i) / len(i)
-        mg_stud = round((total_stud / len(self.grades)), 1)
+            total_stud += sum(i)
+            calc_grade += len(i)
+        mg_stud = round((total_stud / calc_grade), 1)
         return mg_stud
+
+# New method middle grade for all Students by define course
+    def middlegrade_course(self, student, course):
+        total_grade = 0
+        countstud_course = 0
+        list_stud = []
+        for item_1 in range(len(student)):
+            list_stud.append(student[item_1])
+        for item_2 in list_stud:
+            if isinstance(item_2, Student) and course in item_2.finished_courses or course in item_2.courses_in_progress:
+                for i, j in item_2.grades.items():
+                    if i == course:
+                        countstud_course += len(j)
+                        total_grade += sum(j)
+        mdlg_course = round((total_grade / countstud_course), 2)
+        return mdlg_course
 
 # New method compare students by the middle grade
     def __gt__(self, other):
@@ -55,10 +72,12 @@ class Lecturer(Mentor):
 
 # New calculate method middle rate for Lecturer 
     def midrate_lect(self):
-        total = 0
+        total_sum = 0
+        calc_rate = 0
         for i in self.stud_rate.values():
-            total += sum(i) / len(i)
-        mr_lect = round((total / len(self.stud_rate)), 1)
+            total_sum += sum(i)
+            calc_rate += len(i)
+        mr_lect = round((total_sum / calc_rate), 1)
         return mr_lect
 
 # Use __str__ method for Lecturer
@@ -201,3 +220,6 @@ print(reviewer_1)
 print('<>' * 50)
 print(reviewer_2)
 print('<>' * 50)
+
+# Test new method: middle grade for all Students by define course
+print(f'The middle grade is: {Student.middlegrade_course(Student, [student_1, student_2], "Python")},\ncourses are: {student_1.grades}, {student_2.grades}')
