@@ -80,6 +80,22 @@ class Lecturer(Mentor):
         mr_lect = round((total_sum / calc_rate), 1)
         return mr_lect
 
+# New method middle grade for all lecturer by define course
+    def middgrade_lect(self, lecturer, course):
+        total_grade = 0
+        countlect_course = 0
+        list_lect = []
+        for item_1 in range(len(lecturer)):
+            list_lect.append(lecturer[item_1])
+        for item_2 in list_lect:
+            if isinstance(item_2, Lecturer) and course in item_2.courses_attached:
+                for i, j in item_2.stud_rate.items():
+                    if i == course:
+                        countlect_course += len(j)
+                        total_grade += sum(j)
+        mdlg_lect = round((total_grade / countlect_course), 2)
+        return mdlg_lect
+
 # Use __str__ method for Lecturer
     def __str__(self):
         return f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {Lecturer.midrate_lect(self)}'
@@ -222,4 +238,9 @@ print(reviewer_2)
 print('<>' * 50)
 
 # Test new method: middle grade for all Students by define course
-print(f'The middle grade is: {Student.middlegrade_course(Student, [student_1, student_2], "Python")},\ncourses are: {student_1.grades}, {student_2.grades}')
+print(f'The middle grade for students is: {Student.middlegrade_course(Student, [student_1, student_2], "Git")},\ncourses are: {student_1.grades}, {student_2.grades}')
+print('<>' * 50)
+
+#Test new method middle grade for all lecturer by define course
+print(f'The middle grade for lecturers is: {Lecturer.middgrade_lect(Lecturer, [lecturer_1, lecturer_2], "Python")},\n{lecturer_1.stud_rate}, {lecturer_2.stud_rate}.')
+print('<>' * 50)
