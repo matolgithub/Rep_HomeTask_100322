@@ -77,12 +77,12 @@ class Reviewer(Mentor):
         super().__init__(name, surname)
 
 # New method put_rating
-    def put_rating(self, lecturer, course, grade):
-        if isinstance(lecturer, Student) and course in self.courses_attached and course in lecturer.courses_in_progress:
-            if course in lecturer.grades:
-                lecturer.grades[course] += [grade]
+    def put_rating(self, student, course, grade):
+        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
+            if course in student.grades:
+                student.grades[course] += [grade]
             else:
-                lecturer.grades[course] = [grade]
+                student.grades[course] = [grade]
         else:
             return "It's Mistake!"
 
@@ -90,7 +90,46 @@ class Reviewer(Mentor):
     def __str__(self):
         return f'Имя: {self.name}\nФамилия: {self.surname}'
 
-# Block of tests
+# Fild tests
+
+# New 2 instances class Student
+
+
+# New 2 instances class Mentor
+
+
+# New 2 instances class Lecturer
+
+
+# New 2 instances class Reviewer
+
+
+# Test def midgrade_stud(self)
+
+
+# Test def __gt__(self, other)
+
+
+# Test def __str__(self) for Student
+
+
+# Test def lect_rating(self, lecturer, course, grade)
+
+
+# Test def midrate_lect(self)
+
+
+# Test def __str__(self) for Lecturer
+
+
+# Test def __lt__(self, other) for Lecturer
+
+
+# Test def put_rating(self, lecturer, course, grade)
+
+
+# Test 
+
 
 # test __str__ for some_reviewer
 some_reviewer = Reviewer('Some', 'Buddy')
