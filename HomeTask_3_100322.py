@@ -8,13 +8,20 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
+
 # New calculate method middle grade for Student 
     def midgrade_stud(self):
         total_stud = 0
         for i in self.grades.values():
             total_stud += sum(i) / len(i)
         mg_stud = round((total_stud / len(self.grades)), 1)
-        return mg_stud    
+        return mg_stud
+
+# New method compare students by the middle grade
+    def __gt__(self, other):
+        if not isinstance(other, Student):
+            return
+        return Student.midgrade_stud(self) > Student.midgrade_stud(other)
 
 # Use __str__ method for Student
     def __str__(self):
@@ -45,7 +52,7 @@ class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
         self.stud_rate = {}
-        self.mr_lect = 5
+        self.mr_lect = 0
 
 # New calculate method middle rate for Lecturer 
     def midrate_lect(self):
@@ -58,6 +65,12 @@ class Lecturer(Mentor):
 # Use __str__ method for Lecturer
     def __str__(self):
         return f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {Lecturer.midrate_lect(self)}'
+
+# New method compare lecturers by the middle rate
+    def __lt__(self, other):
+        if not isinstance(other, Lecturer):
+            return
+        return self.mr_lect < other.mr_lect
 
 # New subclass from parent Mentor with initialisation
 class Reviewer(Mentor):
@@ -103,4 +116,37 @@ some_student.finished_courses = ['Введение в программирова
 some_student.grades['Python'] = [10, 10, 9, 10]
 some_student.grades['Git'] = [10, 10, 10, 10]
 print(some_student)
+print('<>' * 50)
+
+# test compare the students
+# the first student
+student_1 = Student('Ivan', 'Ivanov', 'M')
+student_1.courses_in_progress = ['Python', 'Git', 'PHP']
+student_1.finished_courses = ['Введение в программирование']
+student_1.grades['Python'] = [10, 10, 9, 10]
+student_1.grades['Git'] = [10, 10, 10, 10]
+student_1.grades['PHP'] = [10, 10, 10, 9]
+student_1.grades['Введение в программирование'] = [10, 10, 10, 9]
+# the second student
+student_2 = Student('Roman', 'Romanov', 'M')
+student_2.courses_in_progress = ['Python', 'Git']
+student_2.finished_courses = ['Введение в программирование']
+student_2.grades['Python'] = [8, 9, 9, 10]
+student_2.grades['Git'] = [10, 8, 10, 9] 
+student_1.grades['Введение в программирование'] = [9, 8, 10, 9]
+print(f'STUDENT {student_1.surname} have middle grade: {Student.midgrade_stud(student_1)} and {student_2.surname} have middle grade: {Student.midgrade_stud(student_2)}.')
+print('<>' * 50)
+
+# test compare the lecturers
+# the first lecturer
+lecturer_1 = Lecturer('Igor', 'Petrov')
+lecturer_1.stud_rate['Python'] = [7, 10, 9, 7]
+lecturer_1.stud_rate['Git'] = [10, 7, 10, 9]
+lecturer_1.stud_rate['PHP'] = [7, 8, 10, 9]
+# the second lecturer
+lecturer_2 = Lecturer('Fedor', 'Sidorov')
+lecturer_2.stud_rate['Python'] = [10, 10, 9, 10]
+lecturer_2.stud_rate['Git'] = [10, 10, 10, 9]
+lecturer_2.stud_rate['CSS'] = [10, 10, 10, 9]
+print(f'LECTURER {lecturer_1.surname} have middle grade: {Lecturer.midrate_lect(lecturer_1)} and {lecturer_2.surname} have middle grade: {Lecturer.midrate_lect(lecturer_2)}.')
 print('<>' * 50)
