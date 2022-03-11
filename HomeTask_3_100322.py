@@ -52,7 +52,6 @@ class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
         self.stud_rate = {}
-        self.mr_lect = 0
 
 # New calculate method middle rate for Lecturer 
     def midrate_lect(self):
@@ -70,7 +69,7 @@ class Lecturer(Mentor):
     def __lt__(self, other):
         if not isinstance(other, Lecturer):
             return
-        return self.mr_lect < other.mr_lect
+        return Lecturer.midrate_lect(self) < Lecturer.midrate_lect(other)
 
 # New subclass from parent Mentor with initialisation
 class Reviewer(Mentor):
@@ -134,7 +133,8 @@ student_2.finished_courses = ['Введение в программирован�
 student_2.grades['Python'] = [8, 9, 9, 10]
 student_2.grades['Git'] = [10, 8, 10, 9] 
 student_1.grades['Введение в программирование'] = [9, 8, 10, 9]
-print(f'STUDENT {student_1.surname} have middle grade: {Student.midgrade_stud(student_1)} and {student_2.surname} have middle grade: {Student.midgrade_stud(student_2)}.')
+print(f'Is STUDENT  {student_1.surname}  {student_1.name} is better then  {student_2.surname}  {student_2.name}  ----  It is ', Student.midgrade_stud(student_1) > Student.midgrade_stud(student_2))
+print(f'Because STUDENT {student_1.surname} have middle grade: {Student.midgrade_stud(student_1)} and {student_2.surname} have middle grade: {Student.midgrade_stud(student_2)}.')
 print('<>' * 50)
 
 # test compare the lecturers
@@ -148,5 +148,6 @@ lecturer_2 = Lecturer('Fedor', 'Sidorov')
 lecturer_2.stud_rate['Python'] = [10, 10, 9, 10]
 lecturer_2.stud_rate['Git'] = [10, 10, 10, 9]
 lecturer_2.stud_rate['CSS'] = [10, 10, 10, 9]
-print(f'LECTURER {lecturer_1.surname} have middle grade: {Lecturer.midrate_lect(lecturer_1)} and {lecturer_2.surname} have middle grade: {Lecturer.midrate_lect(lecturer_2)}.')
+print(f'Is LECTURER  {lecturer_2.surname}  {lecturer_2.name} is better then  {lecturer_1.surname}  {lecturer_1.name}  ----  It is ', Lecturer.midrate_lect(lecturer_1) < Lecturer.midrate_lect(lecturer_2))
+print(f'LECTURER {lecturer_2.surname} have middle grade: {Lecturer.midrate_lect(lecturer_2)} and {lecturer_1.surname} have middle grade: {Lecturer.midrate_lect(lecturer_1)}.')
 print('<>' * 50)
