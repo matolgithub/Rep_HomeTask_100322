@@ -79,10 +79,13 @@ class Reviewer(Mentor):
 # New method put_rating
     def put_rating(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
-            if course in student.grades:
-                student.grades[course] += [grade]
+            if 0 < grade <= 10:
+                if course in student.grades:
+                    student.grades[course] += [grade]
+                else:
+                    student.grades[course] = [grade]
             else:
-                student.grades[course] = [grade]
+                print('Wrong grade, must be 1-10!')
         else:
             return "It's Mistake!"
 
@@ -143,7 +146,9 @@ reviewer_2.courses_attached += ['Python']
 reviewer_2.courses_attached += ['Java']
 
 # Test def midgrade_stud(self) for Student
-
+print(f'The Student {student_1.name} {student_1.surname} have middle grade: {Student.midgrade_stud(student_1)}, for all courses.')
+print(f'The Student {student_2.name} {student_2.surname} have middle grade: {Student.midgrade_stud(student_2)}, for all courses.')
+print('<>' * 50)
 
 # Test def __gt__(self, other) for Student
 print(f'Is STUDENT  {student_1.surname}  {student_1.name} is better then  {student_2.surname}  {student_2.name}  ----  It is ', Student.midgrade_stud(student_1) > Student.midgrade_stud(student_2))
@@ -157,10 +162,19 @@ print(student_2)
 print('<>' * 50)
 
 # Test def lect_rating(self, lecturer, course, grade)
-
+lecturer_1.stud_rate['C#'] = [9, 10, 9, 7, 6, 7, 8]
+Student.lect_rating(student_1, lecturer_1, 'Python', 2)
+print(f'{lecturer_1.surname} {lecturer_1.name} --- {lecturer_1.stud_rate}')
+print('<>' * 50)
+# and test wrong course input 
+Student.lect_rating(student_1, lecturer_1, 'PHP', 9)
+# and test wrong input ball > 10
+Student.lect_rating(student_1, lecturer_1, 'Python', 1000)
+print('<>' * 50)
 
 # Test def midrate_lect(self)
-
+print(f'{lecturer_1.name} {lecturer_1.surname} have middle mark: {Lecturer.midrate_lect(lecturer_1)}\nby all courses: {lecturer_1.stud_rate}')
+print('<>' * 50)
 
 # Test def __str__(self) for Lecturer
 print(lecturer_1)
@@ -174,7 +188,13 @@ print(f'LECTURER {lecturer_2.surname} have middle grade: {Lecturer.midrate_lect(
 print('<>' * 50)
 
 # Test def put_rating(self, student, course, grade) for Reviewer
-
+# wrong input, mark > 10 
+Reviewer.put_rating(reviewer_1, student_1, "Python", 15)
+print('<>' * 50)
+# correct input
+Reviewer.put_rating(reviewer_1, student_1, "Python", 6)
+print(f'{reviewer_1.name} {reviewer_1.surname} put mark for {student_1.name} {student_1.surname},\nand now grades of {student_1.surname} is {student_1.grades}.')
+print('<>' * 50)
 
 # Test def __str__(self) for Reviewer
 print(reviewer_1)
